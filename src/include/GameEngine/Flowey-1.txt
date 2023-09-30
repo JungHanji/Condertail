@@ -1,0 +1,6 @@
+[71, 114]:NPC:Flowey:sc.bmp
+NPC-sets{
+    onDist: 5: startDialog{
+        "I'm not sure what you're talking about."
+    }
+}
