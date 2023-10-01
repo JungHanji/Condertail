@@ -156,11 +156,19 @@ bool in(vector<kc> v, kc i){
     return false;
 }
 
+template<class T>
+bool isEqualsVecs(vector<T> a, vector<T> b){
+    if(a.size()!=b.size()) return false;
+    for(int i = 0; i < a.size(); i++){if(a[i] != b[i]) return false;}
+    return true;
+}
+
 template<class vc>
-int index(vector<vc> vecs, vc key){
+int index(vector<vc> vecs, vc key, bool isVecs = false){
     int ind = 0;
     for(vc vkey : vecs){
-        if(vkey == key) return ind;
+        if((vkey == key) && !isVecs) return ind;
+        else if(isVecs && isEqualsVecs(vkey, key)) return ind;
         ind++;
     }
 
@@ -346,9 +354,9 @@ k &getLast(vector<k> v){
 }
 
 template<class cs>
-void printv(vector<cs> vs, bool qoutes = false, char end=' '){
+void printv(vector<cs> vs, bool qoutes = false, cs end=' '){
     for(cs s: vs){
-        if(qoutes) cout<<"'"<<s<<"'"<<end;
+        if(qoutes) cout<<(cs)"'"<<s<<(cs)"'"<<end;
         else cout<<s<<end;
     }
     cout<<endl;
@@ -358,6 +366,21 @@ vector<string> getFileLines(std::string fileName, char sep = '\n'){
     ifstream ogfile(fileName);
     string line;
     vector<string> lines;
+    while (!ogfile.eof()){
+        getline(ogfile,line, sep);
+        lines.push_back(line);
+    }
+
+    return {lines};
+}
+
+vector<wstring> getFileLinesW(std::string fileName, wchar_t sep = L'\n'){
+    wifstream ogfile(fileName);
+    if(!ogfile.is_open()){
+        cerr<<"[ERROR] getFileLinesW: cant open file\n";
+    }
+    wstring line;
+    vector<wstring> lines;
     while (!ogfile.eof()){
         getline(ogfile,line, sep);
         lines.push_back(line);
@@ -396,6 +419,38 @@ void writeToFile(string fileName, vector<T> lines, char mode = 'w', char sep = '
     }
 }
 
+
+void writeToFileW(string fileName, vector<wstring> lines, char mode = 'w', wchar_t sep = L'\n', wstring end = L"\n"){
+    switch (mode){
+        case 'w':{
+            std::wofstream out(fileName);
+            if(out.is_open()){
+                for(wstring &el :lines){
+                    out << el << sep;
+                }
+                out<<end;
+            } else {
+                cerr<<"[ERROR] writeToFile (mode=w): cant open file\n";
+            }
+            out.close();
+            break;
+        };
+        case 'a':{
+            std::wofstream out(fileName, ios::app);
+            if(out.is_open()){
+                for(wstring &el :lines){
+                    out << el << sep;
+                }
+                out<<end;
+            } else {
+                cerr<<"[ERROR] writeToFile (mode=a): cant open file\n";
+            }
+            out.close();
+            break;
+        };
+    }
+}
+
 template<class T>
 vector<T> delElems(vector<T> vc, int ind){
     
@@ -423,6 +478,31 @@ vector<string> split(string line, char delim = ' '){
     }
 
     return {line};
+}
+
+template<class T>
+vector<vector<T>> splitVec(vector<T> vc, T elemSep){
+    vector<vector<T>> out;
+    bool appending = false;
+    for(T &el : vc){
+        if(el == elemSep){
+            out.push_back(vector<T>());
+            appending = true;
+        } else if(appending){
+            out.back().push_back(el);
+        }
+    }
+    return {out};
+}
+
+template<class T>
+vector<T> sliceVec(vector<T> vc, int inda, int indb){
+    /*
+    0 1 2 3 4 5 6
+          ^ ^     
+    4 7-4 = 2
+    */
+    return vector<T>(vc.begin() + inda, vc.end() - (vc.size() - indb));
 }
 
 vector<wstring> wsplit(wstring line, wchar_t delim = L' '){

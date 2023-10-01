@@ -56,10 +56,18 @@ class Scenes{
     void makeNPCs(){
         npcs["flowey"] = {
             NPC("flowey", 
-                homeSprites+"/Flowey/msc.bmp", homeSprites+"/Flowey/dlg_msc.bmp", homeSprites+"/Flowey/dlg_msc_talking.bmp", 
-                {71, 114}, 15),
+                "res/Texts/Flowey-1/FloweyReplics.txt", homeSprites+"/Flowey/msc.bmp", homeSprites+"/Flowey/dlg_msc.bmp", homeSprites+"/Flowey/dlg_msc_talking.bmp", 
+                {71, 114}, 12),
             "fl_first_intro"
         };
+        auto &repls = npcs["flowey"].first.replics;
+        repls.push_back({L"* Приветик! Я ЦВЕТИК.", L"* ЦВЕТОЧЕК по имени", L"* ЦВЕТИК!"});
+        repls.push_back({L"* Хм-м-м.."});
+        repls.push_back({L"* Впервые в",L"  ПОДЗЕМЕЛЬЕ, верно?"});
+        repls.push_back({L"* Чёрт возьми,",L"  ты наверняка в",L"  растерянности."});
+        repls.push_back({L"* Кто-то должен объяснить",L"  тебе, что тут к чему!"});
+        repls.push_back({L"* Что ж, думаю, маленькому", L"  старому мне придётся",L"  сделать это."});
+        repls.push_back({L"* Готов?",L"* Приступим!"});
     }
 
     void insertImage(vec2 pos, Image img, vec3 alphaColor = {255, 255, 255}){

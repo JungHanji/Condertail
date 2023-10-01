@@ -117,8 +117,8 @@ class StartMenu{
             
             if(pidhandler.isRight()) btnInd = 1;
             else if(pidhandler.isLeft()) btnInd = 0;
-            placeTextInToMapClear(rgmap, {(btnInd == 0) ? rh + L"НЕТ" : L"НЕТ"}, LEFT, (btnInd != 0) ? vec2({50, 25}) : vec2({50-1, 25}), LEFT);
-            placeTextInToMapClear(rgmap, {(btnInd == 1) ? rh + L"ДА" : L"ДА"}, LEFT, (btnInd != 1) ? vec2({70 + rh.size() * 2, 25}) : vec2({70+rh.size(), 25}), LEFT);
+            placeTextInToMapClear(rgmap, {(btnInd == 0) ? rh + L"НЕТ" : L"НЕТ"}, LEFT, (btnInd != 0) ? vec2({50, (int)(res.y - res.y/3)}) : vec2({50-1, (int)(res.y - res.y/3)}), LEFT);
+            placeTextInToMapClear(rgmap, {(btnInd == 1) ? rh + L"ДА" : L"ДА"}, LEFT, (btnInd != 1) ? vec2({70 + rh.size() * 2, (int)(res.y - res.y/3)}) : vec2({70+rh.size(), (int)(res.y - res.y/3)}), LEFT);
             if(pidhandler.econtinue()){
                 switch (btnInd){
                     case 0: screenInd--;break;

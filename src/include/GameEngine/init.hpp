@@ -1,11 +1,15 @@
 #pragma once
 
 #include <ConEN/Engine.hpp>
-#include <conio.h>
-#include "rgmapTools.hpp"
+
 HIDHandler hidhandler;
 string homeSprites = "res/Sprites";
 wchar_t plSimb = L'♥';
+vec2 res = {150, 50};
+
+#include <conio.h>
+#include "rgmapTools.hpp"
+
 
 class plidHandler{
     public:

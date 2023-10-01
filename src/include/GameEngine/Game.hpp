@@ -15,8 +15,8 @@ class Game{
 
     Scenes activeScene;
     Game(){
-        player = Player({(int)(150 / 2) - 5, (int)(35 / 2) - 2});
-        activeScene.load("Ruins");
+        player = Player({(int)(res.x / 2) - 5, (int)(res.y / 2) - 2});
+        activeScene.load(locations[indMap].first);
     }
 
     void getNextMap(){

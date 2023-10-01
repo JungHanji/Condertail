@@ -22,7 +22,7 @@ void safeput(vector<vector<CC>> &cmap, vec2 pos, CC simb){
     }
 }
 
-void placeTextInToMap(vector<vector<wstring>> &rgmap, vector<wstring> text, TEXT_POSITIONS ttpos, vec2 pos, vec3 charcolor, vec3 bgcolor, TEXT_POSITIONS posText = LEFT, vec2 res = {150, 35}){
+void placeTextInToMap(vector<vector<wstring>> &rgmap, vector<wstring> text, TEXT_POSITIONS ttpos, vec2 pos, vec3 charcolor, vec3 bgcolor, TEXT_POSITIONS posText = LEFT){
     int maxStSize = maxStringSize(text);
 
     switch(posText){
@@ -78,7 +78,7 @@ void placeTextInToMap(vector<vector<wstring>> &rgmap, vector<wstring> text, TEXT
     }
 }
 
-void placeTextInToMapClear(vector<vector<wstring>> &rgmap, vector<wstring> text, TEXT_POSITIONS ttpos, vec2 pos, TEXT_POSITIONS posText = LEFT, vec2 res = {150, 35}){
+void placeTextInToMapClear(vector<vector<wstring>> &rgmap, vector<wstring> text, TEXT_POSITIONS ttpos, vec2 pos, TEXT_POSITIONS posText = LEFT){
     int maxStSize = maxStringSize(text);
 
     switch(posText){
@@ -135,6 +135,18 @@ void placeTextInToMapClear(vector<vector<wstring>> &rgmap, vector<wstring> text,
             break;
         }
     }
+}
+
+void printPlaceTextIntoMap(vector<vector<wstring>> &rgmap, int tickStart, int tick, vector<wstring> text, TEXT_POSITIONS ttpos, vec2 pos, vec3 charcolor, vec3 bgcolor, TEXT_POSITIONS posText = LEFT){
+    vector<int> lineSize;for(wstring &txt : text){lineSize.push_back(txt.length());}
+    int esimb = tick-tickStart, lineInd = 0;
+    int t = 0;
+    for(int i : lineSize){
+        t += i;
+        if(t >= esimb) lineInd = i;
+    }
+    
+    placeTextInToMap(rgmap, text, ttpos, pos, charcolor, bgcolor, posText);
 }
 
 void clearMap(vector<vector<wstring>> &rmap, wstring bg = wpixel({0, 0, 0})){
